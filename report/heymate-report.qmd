@@ -9,7 +9,7 @@ bibliography: references.bib
 ## Executive Summary
 This project supports Heymate’s mission to empower restaurant clients with smarter, data-driven tools. We propose a recommendation engine that identifies popular menu items based on market trends, offering a practical and flexible approach to menu optimization. While the initial version uses popularity-based scoring, future enhancements will leverage pretrained models and richer data sources to improve accuracy and impact. Integrated into Heymate’s platform, this tool will help restaurants optimize offerings, reduce waste, and boost sales.
 
-Visual overview of the recommender system workflow.
+![Visual overview of the recommender system workflow](../image/1_visual_flow.png){width="70%" fig-align="center"}
 
 ## Introduction and Project Motivation
 Many restaurants operate with limited insight into which cuisines are popular. This knowledge gap can lead to bloated menus, ingredient waste, and missed revenue opportunities.  
@@ -31,16 +31,24 @@ The horizontal flow illustrates the **Knowledge Base Construction Pipeline**. It
 
 For the recommender, we will develop one baseline algorithm based on cuisine popularity.
 
+![Solution Architecture](../image/2_solution_overview.png){width="80%" fig-align="center"}
+
 ### Data Sources
 To support the development of our restaurant menu recommendation system, we aggregate and validate data for two primary use cases:
 
 #### Input Data
+
+![Input Data](../image/3_input_data.png){width="30%" fig-align="center"}
+
 The internal Heymate database and user-submitted forms serve as foundational inputs, providing:  
 
 - Restaurant Information: Name, Type, and Location  
 - Menu Information: Item Name, Category, and Price
 
 #### Modelling Data
+
+![Modelling Data](../image/4_modelling_data.png){width="80%" fig-align="center"}
+
 To enhance our understanding of menu popularity and strengthen the model’s foundation, we incorporate external data sources:  
 - Kaggle dataset (@kaggle2016menu) for item frequency, restaurant names, categories, and prices  
 - Explore web scraping from platforms like DoorDash or Yelp to extract real-time insights such as most-liked dishes, ratings, or customer feedback  
@@ -50,6 +58,8 @@ Our initial exploratory analysis revealed two key challenges that must be addres
 
 #### Data Entry Challenge
 Menu item entries are inconsistently formatted across restaurants. For example, the same dish may appear as “Seafood Fried Rice”, “149. Fook Chow Seafood Fried Rice”, or even in a different language. This inconsistency undermines our ability to compare and analyze menu data effectively.  
+
+![Sample menu name from Heymate database](../image/5_data.png){fig-align="center"}
 
 To address this, we plan to leverage the capabilities of LLMs, taking inspiration from industry practices such as CloudKitchens’ approach to multi-location menu management (@cloudkitchens). We will evaluate different options, such as GPT, Gemini, and some domain-specific models to:  
 - Normalize item names  
