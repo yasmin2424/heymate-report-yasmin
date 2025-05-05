@@ -1,13 +1,13 @@
 # 🍽️ Heymate Menu Recommendation Project
 
 ## Project Overview
-This project aims to build a menu recommendation pipeline for Heymate's restaurant partners. By analyzing internal product, store, and category data—along with external datasets—we seek to provide insights into menu item popularity, pricing, and restaurant-specific recommendations. Our recommendations help partners optimize their offerings through data-driven insights.
+This project aims to build a menu recommendation pipeline for Heymate's restaurant partners. By analyzing internal product, store, and category data along with external datasets we seek to provide insights into menu item popularity, pricing, and restaurant-specific recommendations. Our recommendations help partners optimize their offerings through data driven insights.
 
 ## Summary
 We conduct comprehensive data validation, enrichment, and exploratory analysis on restaurant menu data. Key steps include:
 
 - Cleaning inconsistent menu item names using LLMs  
-- Merging external datasets (e.g., DoltHub, Kaggle)  
+- Merging external datasets (e.g. Kaggle)  
 - Scoring menu item popularity  
 - Building a pipeline to deliver actionable insights to restaurant clients  
 
