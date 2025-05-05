@@ -1,5 +1,6 @@
 ---
 title: "MDS Capstone Proposal Menu Engineering Supercharged"
+bibliography: references.bib
 ---
 
 
@@ -41,8 +42,7 @@ The internal Heymate database and user-submitted forms serve as foundational inp
 
 #### Modelling Data
 To enhance our understanding of menu popularity and strengthen the model’s foundation, we incorporate external data sources:  
-
-- Kaggle dataset for item frequency, restaurant names, categories, and prices  
+- Kaggle dataset (@kaggle2016menu) for item frequency, restaurant names, categories, and prices  
 - Explore web scraping from platforms like DoorDash or Yelp to extract real-time insights such as most-liked dishes, ratings, or customer feedback  
 
 ### Data Validation (Initial EDA)
@@ -51,8 +51,7 @@ Our initial exploratory analysis revealed two key challenges that must be addres
 #### Data Entry Challenge
 Menu item entries are inconsistently formatted across restaurants. For example, the same dish may appear as “Seafood Fried Rice”, “149. Fook Chow Seafood Fried Rice”, or even in a different language. This inconsistency undermines our ability to compare and analyze menu data effectively.  
 
-To address this, we plan to leverage the capabilities of LLMs, taking inspiration from industry practices such as CloudKitchens’ approach to multi-location menu management [CloudKitchens, 2024]. We will evaluate different options, such as GPT, Gemini, and some domain-specific models to:  
-
+To address this, we plan to leverage the capabilities of LLMs, taking inspiration from industry practices such as CloudKitchens’ approach to multi-location menu management (@cloudkitchens). We will evaluate different options, such as GPT, Gemini, and some domain-specific models to:  
 - Normalize item names  
 - Extract consistent tags  
 ```json
@@ -122,10 +121,6 @@ The anticipated business impact includes:
 | Week 5   | June 2–5         | Integration and modularization                                         |
 | Week 6   | June 9–13        | Final review and report                                                |
 
-## Reference
-- CloudKitchens. (2024, September 16). Multi-channel, multi-location menu management. https://techblog.cloudkitchens.com/p/multi-channel-multi-location-menu  
-- Kaggle. (2016, November). Restaurant menu dataset. https://www.kaggle.com/datasets/nypl/whats-on-the-menu  
-
 ## Appendices
 ### Addressing the Matching Challenge
 Accurately matching menu items is one of the most challenging aspects due to variability in naming conventions.  
@@ -139,3 +134,6 @@ To improve this process, we plan to explore pretrained models for semantic match
 
 These models will improve the ability to recognize and link creatively named menu items to their standardized counterparts in the knowledge base.
 
+{{< pagebreak >}}
+
+## References
