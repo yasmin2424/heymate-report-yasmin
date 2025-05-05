@@ -1,4 +1,4 @@
-# 🍽️ Heymate Menu Recommendation System
+# 🍽️ Heymate Menu Recommendation Project
 
 ## Project Overview
 This project aims to build a menu recommendation pipeline for Heymate's restaurant partners. By analyzing internal product, store, and category data—along with external datasets—we seek to provide insights into menu item popularity, pricing, and restaurant-specific recommendations. Our recommendations help partners optimize their offerings through data-driven insights.
