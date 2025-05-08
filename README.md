@@ -42,7 +42,7 @@ In your R console, install the required packages:
 install.packages(c("readr", "dplyr", "tibble", "knitr"))
 ```
 
-### 5. **In the terminal, run:
+### 5. **In the terminal, run**:
 ```bash
 quarto render report/heymate-report.qmd --to pdf
 ```

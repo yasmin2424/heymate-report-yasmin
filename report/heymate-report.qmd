@@ -67,9 +67,10 @@ menu_data <- read_csv("../data/sample_menu_name.csv")
 kable(menu_data, caption = "Sample menu name from Heymate database")
 ```
 
-To address this, we plan to leverage the capabilities of LLMs, taking inspiration from industry practices such as CloudKitchens’ approach to multi-location menu management (@cloudkitchens). We will evaluate different options, such as GPT, Gemini, and some domain-specific models to:  
-- Normalize item names  
-- Extract consistent tags  
+To address this, we plan to leverage the capabilities of large language models to clean and standardize menu item names. Inspired by industry practices such as CloudKitchens’ approach to multi-location menu management (@cloudkitchens), we will use GPT to:  
+- Normalize inconsistent item names  
+- Extract consistent tags
+
 ```json
 {
   "Base Item": "Fried Rice",
