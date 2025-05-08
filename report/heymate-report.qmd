@@ -86,23 +86,33 @@ The recommender system operates through the following four steps:
 
 1. **Input Data Collection**  
 
-   - Restaurant Menu Data: Each restaurant provides its current list of menu items (names, categories, and optionally descriptions).  
-   - External Dataset: We leverage the Kaggle dataset (and future datasets) to understand broader menu trends, including how often and how recently items appear across other restaurants.
+   - Restaurant Menu Data: A list of the restaurant’s current menu items (names, categories, and optional descriptions).
+   - External Dataset: Built from the Kaggle menu dataset (and future sources), this captures broader market patterns such as how frequently and recently dishes appear across other restaurants.
+   
 
-2. **Matching**  
-   The system matches each of the restaurant’s menu items to items in the knowledge base (built from the Kaggle dataset) using normalized names and categories. Matching is a key step because menu item names vary widely across restaurants (e.g., “BBQ Chicken Pizza” vs “Barbecue Chicken Flatbread”).
+2. **Matching & Normalization**  
+   The Menu item names vary widely across restaurants(e.g., "BBQ Chicken Pizza" vs "Barbecue Chicken Pizza"). To address this:
+   - We apply name normalization and category matching to link each restaurant’s menu item to the closest equivalent in the knowledge base.
+   - To do this, we use a query-based matching approach that searches the knowledge base for the most similar items, even if names vary across restaurants.
+   - This enables alignment despite variations in wording or format.
 
 3. **Scoring**  
-   Each item is assigned a popularity score based on:  
+   Once matched, each item receives a popularity score based on:  
    
-   - Frequency: How often the item appears in other restaurants’ menus  
+   - Frequency: How often the dish appears across menus in the dataset. 
    - Recency: How recently it has been featured  
+
+   We use a weighted formula below to combine these factors:
 
    **Scoring formula:**  
    `Score = 0.7 × (normalized frequency) + 0.3 × (normalized recency)`
 
+   **Note:** These initial weights are heuristic and subject to refinement as we validate with partner feedback.
+
 4. **Recommendation**  
-   We score each menu item to identify both top and underperforming dishes. The system then returns a ranked list of menu items to guide data-informed decisions.
+   After computing the popularity scores for each menu item, a ranked list to identify top and underperforming dishes is provided.
+
+
 
 ### Example Use Case
 For instance, if a restaurant uploads its menu and includes “Hawaiian Pizza,” the system:  
