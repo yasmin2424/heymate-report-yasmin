@@ -12,6 +12,7 @@ We conduct comprehensive data validation, enrichment, and exploratory analysis o
 - Building a pipeline to deliver actionable insights to restaurant clients  
 
 ## How to Run the Analysis
+To render the Heymate recommendation proposal report on your local machine, follow these steps:
 
 ### 1. Check if Quarto is Installed
 
@@ -29,7 +30,19 @@ git clone https://github.com/your-org/heymate-report.git
 cd heymate-report
 ```
 
-### 3. **Render the Quarto report** (in RStudio or VS Code terminal):
+### 3. **Open in RStudio or VS Code**:
+Open the project in RStudio or VS Code and navigate to the report folder:
+```r
+YOUR-PATH/heymate-report/report/heymate-report.qmd
+```
+
+### 4. **Install R Dependencies**:
+In your R console, install the required packages:
+```r
+install.packages(c("readr", "dplyr", "tibble", "knitr"))
+```
+
+### 5. **In the terminal, run:
 ```bash
 quarto render report/heymate-report.qmd --to pdf
 ```
