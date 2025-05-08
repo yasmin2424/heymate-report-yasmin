@@ -49,21 +49,28 @@ The internal Heymate database and user-submitted forms serve as foundational inp
 
 ![Modelling Data](../image/4_modelling_data.png){width="80%" fig-align="center"}
 
-To enhance our understanding of menu popularity and strengthen the model’s foundation, we incorporate external data sources:  
-- Kaggle dataset (@kaggle2016menu) for item frequency, restaurant names, categories, and prices  
-- Explore web scraping from platforms like DoorDash or Yelp to extract real-time insights such as most-liked dishes, ratings, or customer feedback  
+To enhance our understanding of menu popularity and strengthen the foundation of our recommendation model, we plan to incorporate external data sources including:
+- Uber Eats USA Restaurants and Menus (@sakib2023ubereats from Kaggle): Offers modern restaurant-level data including ratings, menu items, and restaurant types
+- What’s on the Menu? (@nypl2016menu from Kaggle): Provides historical menu data including item frequency, restaurant names, categories, and prices
 
 ### Data Validation (Initial EDA)
 Our initial exploratory analysis revealed two key challenges that must be addressed before modelling.
 
 #### Data Entry Challenge
-Menu item entries are inconsistently formatted across restaurants. For example, the same dish may appear as “Seafood Fried Rice”, “149. Fook Chow Seafood Fried Rice”, or even in a different language. This inconsistency undermines our ability to compare and analyze menu data effectively.  
+Menu item names are inconsistently formatted across restaurants as some include item numbers, others use different naming styles or even different languages. For example, the same dish may appear as "Seafood Fried Rice", "149. Fook Chow Seafood Fried Rice", or a translated version. These inconsistencies make it difficult to compare, group, or analyze menu items reliably. 
 
-![Sample menu name from Heymate database](../image/5_data.png){fig-align="center"}
+```{r echo=FALSE, message=FALSE}
+library(readr)
+library(knitr)
 
-To address this, we plan to leverage the capabilities of LLMs, taking inspiration from industry practices such as CloudKitchens’ approach to multi-location menu management (@cloudkitchens). We will evaluate different options, such as GPT, Gemini, and some domain-specific models to:  
-- Normalize item names  
-- Extract consistent tags  
+menu_data <- read_csv("../data/sample_menu_name.csv") 
+kable(menu_data, caption = "Sample menu name from Heymate database")
+```
+
+To address this, we plan to leverage the capabilities of large language models to clean and standardize menu item names. Inspired by industry practices such as CloudKitchens’ approach to multi-location menu management (@cloudkitchens), we will use GPT to:  
+- Normalize inconsistent item names  
+- Extract consistent tags
+
 ```json
 {
   "Base Item": "Fried Rice",
