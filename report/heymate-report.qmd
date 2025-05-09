@@ -35,13 +35,11 @@ The solution consists of the following two components:
 
 ## Solution Overview
 
-The vertical flow illustrates the **Recommendation Pipeline**. In the production environment, the recommender will receive a web request from HeyMate's restaurant ERP system, which includes the restaurant type and the existing menu. In the development environment, we will simulate the process by directly using the restaurant data in the database. The recommender will generate a list of recommended items. For this pipeline, we will deliver 2 APIs where the recommender receives the input and returns the output.
+@fig-solution-architecture shows the system architecture. The **[vertical flow](#fig-solution-architecture)** represents the Recommendation Pipeline, which takes a restaurant’s type and menu and returns a list of recommended items through two APIs. In production, the input comes from a web request from the restaurant management portal. In development, the input is accessed directly from Heymate's database.
 
-The horizontal flow illustrates the **Knowledge Base Construction Pipeline**. It begins with open datasets of restaurant menus and then applies LLMs to carry out feature engineering. The LLMs standardize menu item names and their feature tags based on the cuisine name and description. All the cleaned and standardized data will be funneled into the knowledge base and assigned a unique label for each data source. As part of this pipeline, we will deliver an API that uses LLMs for feature extraction and build the initial knowledge base using a publicly available dataset.
+The **[horizontal flow](#fig-solution-architecture)** represents the Knowledge Base Construction Pipeline. It starts with public restaurant menu datasets, applies feature engineering using LLMs to standardize names and tags, and stores the cleaned data with source labels. This pipeline includes an API for feature extraction and wee will build the initial knowledge base. For the **[Recommender](#fig-solution-architecture)**, we will develop a query-based baseline algorithm using cuisine popularity.
 
-For the recommender, we will develop one baseline algorithm based on cuisine popularity.
-
-![Solution Architecture](../image/2_solution_overview.png){width="80%" fig-align="center"}
+![Solution Architecture](../image/2_solution_overview.png){#fig-solution-architecture width="80%" fig-align="center"}
 
 ### Data Sources
 
@@ -101,7 +99,7 @@ To make these datasets work together, we need to:
 The final output is a unified and cleaned dataset enriched with relevant features such as item frequency, price, and standardized names, laying the groundwork for our Recommender Module.
 
 ### Recommender Module
-![Flow chart](../image/4_visual_flow.png){width="80%" fig-align="center"}
+<!-- ![Flow chart](../image/4_visual_flow.png){width="80%" fig-align="center"} -->
 
 The recommender system operates through the following four steps as shown in the flow chart above:
 
