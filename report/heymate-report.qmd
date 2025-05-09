@@ -103,7 +103,7 @@ The final output is a unified and cleaned dataset enriched with relevant feature
 ![Flow chart](../image/1_visual_flow.png){width="80%" fig-align="center"}
 
 
-The recommender system operates through the following four steps as shown in the flow chart above:
+The recommender system operates through the following four steps as shown in figure:
 
 1.  **Input Data Collection**
 
@@ -134,14 +134,13 @@ The recommender system operates through the following four steps as shown in the
     After computing the popularity scores for each menu item, a ranked list to identify top and underperforming dishes is provided.
 
 #### Example Use Case
-
-For instance, if a restaurant uploads its menu and includes “Hawaiian Pizza,” the system:
-
--   Matches this item to the closest equivalent in the knowledge base\
--   Scores its market popularity and provides insight (e.g., "Low orders in the last 6 months")\
--   Recommends:
-    1.  Updating the item if it’s underperforming\
-    2.  Adding trending items like “BBQ Chicken Pizza” that are missing from the current menu
+ Suppose a restaurant uploads its menu, which includes “Hawaiian Pizza.
+ The recommender system:
+-   Matches “Hawaiian Pizza” to its closest entry in the knowledge base.
+-   Calculates its popularity score.
+-   Returns insights such as:
+       Popularity score: 62 (below market median)
+       It suggests adding trending dishes like “BBQ Chicken Pizza” that are more popular.
 
 ## Final Data Product
 
