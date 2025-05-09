@@ -56,7 +56,7 @@ The internal Heymate database and user-submitted forms serve as foundational inp
 
 #### Modelling Data
 
-![Modelling Data](../image/4_modelling_data.png){width="80%" fig-align="center"}
+![Modelling Data](../image/4_modelling_data.png){#fig-model-structure width="80%" fig-align="center"}
 
 To enhance our understanding of menu popularity and strengthen the foundation of our recommendation model, we plan to incorporate external data sources including: 
 
@@ -92,7 +92,7 @@ To address this, we plan to leverage the capabilities of large language models t
 
 #### Modeling Challenge
 
-A key challenge in our modelling process is integrating multiple datasets that use inconsistent or non-standard identifiers for restaurants and menu items.\
+A key challenge in our [modelling process](#fig-model-structure) is integrating multiple datasets that use inconsistent or non-standard identifiers for restaurants and menu items.\
 To make these datasets work together, we need to:
 
 -   Align records using partially matching keys like restaurant and item names\
@@ -103,9 +103,9 @@ The final output is a unified and cleaned dataset enriched with relevant feature
 
 ### Recommender Module
 
-![Flow chart](../image/1_visual_flow.png){#visual_flow width="40%" fig-align="center"}
+![Flow chart](../image/1_visual_flow.png){#fig-visual-flow width="40%" fig-align="center"}
 
-The recommender system operates through the following four steps as shown in figure:
+The recommender system operates through the following four steps as shown in [figure](#fig-visual-flow):
 
 1.  **Input Data Collection**
 
