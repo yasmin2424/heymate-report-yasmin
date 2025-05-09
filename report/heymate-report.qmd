@@ -21,23 +21,23 @@ This project supports Heymate’s mission to empower restaurant clients with sma
 
 ## Introduction and Project Motivation
 
-Many restaurants operate with limited insight into which cuisines are popular. This knowledge gap can lead to bloated menus, ingredient waste, and missed revenue opportunities.\
+Many restaurants operate with limited insight into which dishes are popular. This knowledge gap can lead to bloated menus, ingredient waste, and missed revenue opportunities.\
 Heymate, our project partner, is a Canadian tech company that offers cashback rewards and a full-suite business management platform for small and medium-sized enterprises (SMEs). Since many of Heymate’s clients are restaurants, they are a primary focus for added value through smart tools.\
 This project helps Heymate enhance its role as a strategic partner by providing restaurant clients with a menu recommendation tool designed to answer two key questions:
 
-- How can menus match market trends?\
-- How can market data help restaurant owners make better-informed decisions?
+-   How can menus match market trends?\
+-   How can market data help restaurant owners make better-informed decisions?
 
 The solution consists of the following two components:
 
-- Develop a recommender system that suggests menu adjustments based on existing items and restaurant type\
-- Build a data pipeline that continuously ingests new data to enhance the model’s accuracy and relevance over time.
+-   Develop a recommender system that suggests menu adjustments based on existing items and restaurant type\
+-   Build a data pipeline that continuously ingests new data to enhance the model’s accuracy and relevance over time.
 
 ## Solution Overview
 
-@fig-solution-architecture shows the system architecture. The **[vertical flow](#fig-solution-architecture)** represents the Recommendation Pipeline, which takes a restaurant’s type and menu and returns a list of recommended items through two APIs. In production, the input comes from a web request from the restaurant management portal. In development, the input is accessed directly from Heymate's database.
+@fig-solution-architecture shows the system architecture. The [**vertical flow**](#fig-solution-architecture) represents the Recommendation Pipeline, which takes a restaurant’s type and menu and returns a list of recommended items through two APIs. In production, the input comes from a web request from the restaurant management portal. In development, the input is accessed directly from Heymate's database.
 
-The **[horizontal flow](#fig-solution-architecture)** represents the Knowledge Base Construction Pipeline. It starts with public restaurant menu datasets, applies feature engineering using LLMs to standardize names and tags, and stores the cleaned data with source labels. This pipeline includes an API for feature extraction and wee will build the initial knowledge base. For the **[Recommender](#fig-solution-architecture)**, we will develop a query-based baseline algorithm using cuisine popularity.
+The [**horizontal flow**](#fig-solution-architecture) represents the Knowledge Base Construction Pipeline. It starts with public restaurant menu datasets, applies feature engineering using LLMs to standardize names and tags, and stores the cleaned data with source labels. This pipeline includes an API for feature extraction and wee will build the initial knowledge base. For the [**Recommender**](#fig-solution-architecture), we will develop a query-based baseline algorithm using cuisine popularity.
 
 ![Solution Architecture](../image/2_solution_overview.png){#fig-solution-architecture width="80%" fig-align="center"}
 
@@ -58,7 +58,10 @@ The internal Heymate database and user-submitted forms serve as foundational inp
 
 ![Modelling Data](../image/4_modelling_data.png){width="80%" fig-align="center"}
 
-To enhance our understanding of menu popularity and strengthen the foundation of our recommendation model, we plan to incorporate external data sources including: - Uber Eats USA Restaurants and Menus (@sakib2023ubereats from Kaggle): Offers modern restaurant-level data including ratings, menu items, and restaurant types - What’s on the Menu? (@nypl2016menu from Kaggle): Provides historical menu data including item frequency, restaurant names, categories, and prices
+To enhance our understanding of menu popularity and strengthen the foundation of our recommendation model, we plan to incorporate external data sources including: 
+
+- Uber Eats USA Restaurants and Menus (@sakib2023ubereats from Kaggle): Offers modern restaurant-level data including ratings, menu items, and restaurant types 
+- What’s on the Menu? (@nypl2016menu from Kaggle): Provides historical menu data including item frequency, restaurant names, categories, and prices
 
 ### Data Validation (Initial EDA)
 
@@ -100,8 +103,7 @@ The final output is a unified and cleaned dataset enriched with relevant feature
 
 ### Recommender Module
 
-![Flow chart](../image/1_visual_flow.png){width="80%" fig-align="center"}
-
+![Flow chart](../image/1_visual_flow.png){#visual_flow width="40%" fig-align="center"}
 
 The recommender system operates through the following four steps as shown in figure:
 
@@ -154,12 +156,12 @@ The anticipated business impact includes:
 
 ### Success Criteria
 
-The project will be considered successful if internal tests using Heymate’s internal dataset sample produce results that align with business expectations, and the visualization demo operates as intended. Furthermore, the popularity scoring schema and recommender system will be delivered as open-ended, modular components, enabling Heymate to adapt and expand the solution in future development. 
+The project will be considered successful if internal tests using Heymate’s internal dataset sample produce results that align with business expectations, and the visualization demo operates as intended. Furthermore, the popularity scoring schema and recommender system will be delivered as open-ended, modular components, enabling Heymate to adapt and expand the solution in future development.
 
 ## Project Timeline
 
 | Week     | Date      | Tasks                                                               |
-|------------------|------------------|-------------------------------------|
+|------------------|------------------|------------------------------------|
 | Week 1   | May 5–9   | Proposal, Design Knowledge Base, Database setup                     |
 | Week 2–4 | May 12–30 | LLM research and tuning, workspace setup, API framework, core logic |
 | Week 5   | June 2–5  | Integration and modularization                                      |
