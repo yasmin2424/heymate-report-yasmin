@@ -101,8 +101,9 @@ To make these datasets work together, we need to:
 The final output is a unified and cleaned dataset enriched with relevant features such as item frequency, price, and standardized names, laying the groundwork for our Recommender Module.
 
 ### Recommender Module
+![Flow chart](../image/4_visual_flow.png){width="80%" fig-align="center"}
 
-The recommender system operates through the following four steps:
+The recommender system operates through the following four steps as shown in the flow chart above:
 
 1.  **Input Data Collection**
 
