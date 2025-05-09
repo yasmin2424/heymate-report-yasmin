@@ -138,10 +138,10 @@ The recommender system operates through the following four steps as shown in [fi
 #### Example Use Case
  Suppose a restaurant uploads its menu, which includes “Hawaiian Pizza.
  The recommender system:
--   Matches “Hawaiian Pizza” to its closest entry in the knowledge base.
--   Calculates its popularity score.
--   Returns insights such as:
-       Popularity score: 62 (below market median)
+-   Matches “Hawaiian Pizza” to its closest entry in the knowledge base.\
+-   Calculates its popularity score.\
+-   Returns insights such as:\
+       Popularity score: 62 (below market median)\
        It suggests adding trending dishes like “BBQ Chicken Pizza” that are more popular.
 
 ## Final Data Product
