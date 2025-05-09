@@ -1,0 +1,16 @@
+# install with conda env create -f environment.yml 
+name: 'data-cleaning'
+channels:
+  - conda-forge
+  - pytorch
+  - anaconda
+  - plotly
+  - defaults
+dependencies:
+  - python==3.12
+  - ipykernel
+  - pandas
+  - pip
+  - pip:
+    - openai
+
