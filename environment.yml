@@ -7,10 +7,19 @@ channels:
   - plotly
   - defaults
 dependencies:
-  - python==3.12
-  - ipykernel
+  - python=3.10
   - pandas
+  - numpy
+  - ipykernel
+  - jupyterlab
+  - matplotlib
+  - seaborn
+  - pyodbc
+  - sqlalchemy
+  - tqdm
+  - ipython
   - pip
   - pip:
-    - openai
-
+      - openai
+      - python-dotenv
+      - urllib3
