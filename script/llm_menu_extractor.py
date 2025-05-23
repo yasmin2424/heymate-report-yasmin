@@ -14,6 +14,18 @@ from openai import OpenAI
 MODEL_NAME = "o4-mini"
 
 def get_default_allowed_types() -> List[str]:
+    """
+    Returns the default list of standardized restaurant types.
+
+    These types are based on the "Food and Drink" place types defined by Google Maps Places:
+    https://developers.google.com/maps/documentation/places/web-service/place-types#food-and-drink
+
+    If future updates or customizations to the allowed restaurant types are needed,
+    this list should be modified accordingly.
+
+    Returns:
+        List[str]: A list of valid restaurant type strings for standardization.
+    """
     return [
         "acai shop", "afghani restaurant", "african restaurant", "american restaurant", "asian restaurant",
         "bagel shop", "bakery", "bar", "bar and grill", "barbecue restaurant", "brazilian restaurant",
@@ -33,6 +45,31 @@ def get_default_allowed_types() -> List[str]:
 # ─────────────────────────────────────────────────────────────
 
 class OpenAIConnector:
+    """
+    Wrapper class to handle interaction with the OpenAI Chat API.
+
+    This class is responsible for:
+    - Loading the OpenAI API token from a file.
+    - Constructing the prompt.
+    - Sending batch requests to the GPT model.
+    - Parsing and returning structured results.
+
+    Attributes:
+    ----------
+    token_path : str
+        Path to the file that stores the OpenAI API key.
+
+    Methods:
+    -------
+    classify_batch(rows, model=..., timeout_s=...)
+        Send a batch of menu items to the GPT model for structured extraction.
+
+    _load_token(token_path)
+        Load the API token from a local credentials file.
+
+    _get_system_prompt()
+        Generate the system instruction used in GPT prompt.
+    """
     def __init__(self, token_path="../credentials/open_ai_token.txt"):
         self.token = self._load_token(token_path)
         self.client = OpenAI(api_key=self.token)
@@ -131,6 +168,37 @@ def run_qc_extraction(
     col_mapping: Dict[str, str] = None,
     allowed_types: List[str] = None
 ) -> List[Dict[str, Any]]:
+    """
+    Process a DataFrame of menu items and extract standardized dish features using an OpenAI LLM.
+
+    Parameters:
+    ----------
+    df_input : pd.DataFrame
+        The input DataFrame containing raw menu item data. Must include the following columns:
+        - 'row_id', 'item_id', 'restaurant_name', 'restaurant_type', 'item_name', 'menu_item_description', 'menu_category'
+
+    col_mapping : dict, optional
+        Optional dictionary to map custom input column names to the expected column names.
+
+    allowed_types : list of str, optional
+        List of valid standardized restaurant types. If not provided, defaults to a predefined list.
+
+    Returns:
+    -------
+    List[Dict[str, Any]]
+        A list of dictionaries where each dictionary includes:
+        - 'row_id': Original row ID from the input
+        - 'item_id': Original item ID from the input
+        - 'dish_base': Extracted base name of the dish (e.g., "pizza")
+        - 'dish_flavor': List of up to 5 descriptors (e.g., toppings, sauces)
+        - 'is_combo': Boolean indicating if the item is a combo
+        - 'restaurant_type_std': Standardized restaurant type string
+
+    Raises:
+    ------
+    ValueError:
+        If any of the extracted restaurant_type_std values are not in the allowed types list.
+    """
     if col_mapping is None:
         col_mapping = {}
     if allowed_types is None:
