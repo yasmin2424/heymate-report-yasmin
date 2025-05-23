@@ -1,5 +1,3 @@
-
-
 from typing import List, Dict, Any, Union, Iterable
 import pandas as pd
 import random
@@ -130,8 +128,6 @@ Rules:
 
 def run_qc_extraction(
     df_input: pd.DataFrame,
-    batch_index: int = None,
-    batch_size: int = 30,
     col_mapping: Dict[str, str] = None,
     allowed_types: List[str] = None
 ) -> List[Dict[str, Any]]:
@@ -146,10 +142,7 @@ def run_qc_extraction(
         if col not in df.columns:
             df[col] = ""
 
-    if batch_index is None:
-        batch_index = random.randint(0, len(df) // batch_size)
-
-    df_batch = df[expected_cols].iloc[batch_size * batch_index : batch_size * (batch_index + 1)]
+    df_batch = df[expected_cols]
 
     # Call GPT
     oai = OpenAIConnector()
@@ -176,3 +169,32 @@ def run_qc_extraction(
         raise ValueError(f"Invalid restaurant_type_std values found: {sorted(invalid_values)}")
 
     return output_json
+
+# ─────────────────────────────────────────────────────────────
+# Main Execution Entry Point
+# ─────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    import pandas as pd
+
+    # Example use case: direct DataFrame input
+    df_example = pd.DataFrame([
+        {
+            "item_id": "1",
+            "restaurant_name": "Pizza World",
+            "restaurant_type": "Fast Food, Pizza",
+            "item_name": "Pepperoni Pizza Combo",
+            "menu_item_description": "Large pepperoni pizza with garlic bread and a drink",
+            "menu_category": "Combo"
+        }
+    ])
+
+    try:
+        results = run_qc_extraction(df_input=df_example)
+        print("✅ Extraction completed. Output:")
+        print(json.dumps(results, indent=2))
+    except Exception as e:
+        print(f"❌ Extraction failed: {e}")
+
+
+
