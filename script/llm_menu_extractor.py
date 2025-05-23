@@ -137,7 +137,7 @@ def run_qc_extraction(
         allowed_types = get_default_allowed_types()
 
     df = df_input.rename(columns=col_mapping).copy()
-    expected_cols = ["item_id", "restaurant_name", "restaurant_type", "item_name", "menu_item_description", "menu_category"]
+    expected_cols = ["row_id", "item_id", "restaurant_name", "restaurant_type", "item_name", "menu_item_description", "menu_category"]  
     for col in expected_cols:
         if col not in df.columns:
             df[col] = ""
@@ -150,9 +150,10 @@ def run_qc_extraction(
 
     # Build JSON output
     output_json = []
-    for item_id, res in zip(df_batch["item_id"].values, result):
+    for row_id, item_id, res in zip(df_batch["row_id"].values, df_batch["item_id"].values, result): 
         res = res or {}
         record = {
+            "row_id": row_id,  
             "item_id": item_id,
             "dish_base": res.get("dish_base", ""),
             "dish_flavor": res.get("dish_flavor", []),
@@ -180,6 +181,7 @@ if __name__ == "__main__":
     # Example use case: direct DataFrame input
     df_example = pd.DataFrame([
         {
+            "row_id": "001",
             "item_id": "1",
             "restaurant_name": "Pizza World",
             "restaurant_type": "Fast Food, Pizza",
@@ -195,6 +197,3 @@ if __name__ == "__main__":
         print(json.dumps(results, indent=2))
     except Exception as e:
         print(f"❌ Extraction failed: {e}")
-
-
-
