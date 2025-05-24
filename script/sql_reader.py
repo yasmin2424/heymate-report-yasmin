@@ -6,6 +6,18 @@ from dotenv import load_dotenv
 
 # ---------------------------------1. Connect to SQL Server--------------------------------
 def connect_to_sql_server():
+    """
+    Establishes and returns a connection and cursor to the SQL Server using credentials from a .env file.
+
+    Returns
+    -------
+    tuple
+        A tuple containing:
+        - conn : pymssql.Connection
+            The established SQL Server connection.
+        - cursor : pymssql.Cursor
+            Cursor object associated with the connection.
+    """
     load_dotenv(dotenv_path="../credentials/.env")
 
     conn = pymssql.connect(
@@ -18,6 +30,26 @@ def connect_to_sql_server():
 
 # --------------------------2. Read DataFrame from SQL Server table------------------------
 def read_dataframe_from_sql(query, conn):
+    """
+    Executes a SQL query and returns the result as a pandas DataFrame.
+
+    Parameters
+    ----------
+    query : str
+        The SQL query to execute.
+    conn : pymssql.Connection
+        The active SQL Server connection.
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame containing the results of the query.
+
+    Raises
+    ------
+    RuntimeError
+        If query execution fails.
+    """  
     try:
         df = pd.read_sql(query, conn)
         print(f"Read {len(df)} rows from SQL Server.")
@@ -27,6 +59,30 @@ def read_dataframe_from_sql(query, conn):
 
 # --------------------------3. Get data batch from SQL Server -----------------------------
 def get_data_batch(start: int, end: int, source: str) -> pd.DataFrame:
+    """
+    Retrieves a batch of data from SQL Server based on row range and data source type.
+
+    Parameters
+    ----------
+    start : int
+        Start index for row selection.
+    end : int
+        End index for row selection.
+    source : str
+        Either 'training' or 'testing', indicating the source table.
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame containing the requested batch of data.
+
+    Raises
+    ------
+    ValueError
+        If the source parameter is not 'training' or 'testing'.
+    RuntimeError
+        If data fetching fails.
+    """
     conn, cursor = connect_to_sql_server()
 
     if source == "training":

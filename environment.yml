@@ -15,6 +15,9 @@ dependencies:
   - jupyterlab
   - matplotlib
   - seaborn
+  - freetds
+  - pymssql
+  - altair
   - sqlalchemy
   - tqdm
   - ipython
