@@ -1,5 +1,5 @@
 # install with conda env create -f environment.yml 
-name: 'data-cleaning'
+name: 'heymate-mds-data-clean-pipeline'
 channels:
   - conda-forge
   - pytorch
