@@ -6,6 +6,20 @@ from sql_reader import connect_to_sql_server
 
 # --------------------------------1. Create table if not exist-----------------------------
 def create_table_if_not_exists(cursor, conn, table_name, schema_sql):
+    """
+    Creates a SQL table if it does not already exist.
+
+    Parameters
+    ----------
+    cursor : pymssql.Cursor
+        Active database cursor for executing the SQL command.
+    conn : pymssql.Connection
+        Active database connection to commit the transaction.
+    table_name : str
+        Name of the table to check or create.
+    schema_sql : str
+        SQL DDL statement to create the table.
+    """
     cursor.execute(f"""
     IF OBJECT_ID('{table_name}', 'U') IS NULL
     BEGIN
@@ -17,12 +31,41 @@ def create_table_if_not_exists(cursor, conn, table_name, schema_sql):
 
 # --------------------------------2. Truncate table if necessary---------------------------
 def truncate_table(cursor, conn, table_name):
+    """
+    Truncates (clears) all data from the specified SQL table.
+
+    Parameters
+    ----------
+    cursor : pymssql.Cursor
+        Active database cursor for executing the command.
+    conn : pymssql.Connection
+        Active database connection to commit the transaction.
+    table_name : str
+        The name of the table to truncate.
+    """
     print(f"Truncating table {table_name}...")
     cursor.execute(f"TRUNCATE TABLE {table_name}")
     conn.commit()
 
 # --------------------------------3. Clean the dataframe----------------------------------
 def clean_dataframe(df):
+    """
+    Cleans a pandas DataFrame by standardizing list and null values.
+
+    - Converts list-type entries to comma-separated strings.
+    - Converts non-null, non-list entries to strings.
+    - Replaces empty or invalid entries with None.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The DataFrame to clean.
+
+    Returns
+    -------
+    pd.DataFrame
+        The cleaned DataFrame.
+    """
     for col in df.columns:
         df[col] = df[col].apply(lambda x: 
             ", ".join(x) if isinstance(x, list) and len(x) > 0 else
@@ -39,20 +82,46 @@ def process_and_upload(
     truncate: bool = False, 
 ):
     """
-    Convert LLM JSON results to DataFrame and upload to SQL Server.
+    Upload cleaned menu data to SQL Server.
+
+    This function takes in a list of dictionaries (usually cleaned LLM outputs),
+    transforms it into a pandas DataFrame, cleans the data, creates the corresponding
+    SQL table if it doesn't exist, and inserts the data in bulk.
 
     Parameters
     ----------
     cleaned_results : list of dict
-        Each dict should contain: item_id, dish_base, dish_flavor, is_combo, restaurant_type_std
-    table_name : str, optional
-        If not provided, defaults to:
-            - "cleaned_menu_mds" for training
-            - "cleaned_internal_menu_mds" for testing
-    truncate : bool
-        Whether to clear the table before inserting
+        A list where each item is a dictionary with keys:
+        - item_id: Unique identifier of the menu item
+        - row_id: Row index from original dataset
+        - dish_base: Cleaned base name of the dish
+        - dish_flavor: Flavors or descriptors (comma-separated string)
+        - is_combo: Whether the item is a combo (Yes/No)
+        - restaurant_type_std: Standardized restaurant type
+
     source : str
-        Either "training" or "testing"
+        Indicates data source. Must be "training" or "testing". 
+        Used to determine default table name if not explicitly provided.
+
+    table_name : str, optional
+        Custom table name to write to. If not provided, defaults to:
+        - "cleaned_menu_mds" for training
+        - "cleaned_internal_menu_mds" for testing
+
+    truncate : bool, default False
+        If True, clears the existing table before inserting new rows.
+
+    Returns
+    -------
+    int
+        The number of rows successfully uploaded.
+
+    Raises
+    ------
+    RuntimeError
+        If there is any issue during upload (e.g., table schema mismatch, DB error).
+    ValueError
+        If the source argument is invalid or cleaned data rows are incorrectly formatted.
     """
 
     # Determine table name if not provided
