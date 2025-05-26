@@ -7,7 +7,7 @@ channels:
   - plotly
   - defaults
 dependencies:
-  - python=3.9git 
+  - python=3.9 
   - pandas
   - numpy
   - requests
