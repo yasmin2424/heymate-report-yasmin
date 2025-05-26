@@ -20,7 +20,7 @@ jobs:
           environment-file: environment.yml
           auto-activate-base: false
           activate-environment: heymate-mds-data-clean-pipeline
-          python-version: 3.10
+          python-version: 3.9
 
       - name: Show Python version
         shell: bash -l {0}
