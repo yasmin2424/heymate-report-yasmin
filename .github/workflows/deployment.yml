@@ -2,9 +2,9 @@ name: Deployment Test
 
 on:
   push:
-    branches: [local_deploy]
+    branches: [main]
   pull_request:
-    branches: [local_deploy]
+    branches: [main]
 
 jobs:
   test-deployment:
