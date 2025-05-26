@@ -12,6 +12,7 @@ def etl(req: func.HttpRequest) -> func.HttpResponse:
     write_log(start_row_index, end_row_index, source, status='started')
     result = main(start_row_index, end_row_index, source)
     log = write_log(start_row_index, end_row_index, source, result.get('status', 'failed'), message=result.get('message', None))
+    
     if start_row_index and end_row_index:
         if result:
             # Write
