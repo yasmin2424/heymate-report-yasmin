@@ -8,13 +8,11 @@ def main(start_row_index: int, end_row_index: int, source: str):
         df = get_data_batch(start_row_index, end_row_index, source)
         cleaned_results = run_qc_extraction(df)
         process_and_upload(cleaned_results, source=source)
-        write_log(start_row_index, end_row_index, source, "success")
         return {
             "status": "success",
             "processed": len(cleaned_results)
         }
     except Exception as e:
-        write_log(start_row_index, end_row_index, source, "error", message=str(e))
         return {
             "status": "error",
             "message": str(e)
