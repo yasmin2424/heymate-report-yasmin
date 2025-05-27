@@ -1,15 +1,1 @@
-pandas
-numpy
-requests
-matplotlib
-seaborn
-altair
-sqlalchemy
-tqdm
-ipython
-pymssql
-freetds
-openai
-python-dotenv
-urllib3
 azure-functions
