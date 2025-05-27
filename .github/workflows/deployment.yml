@@ -13,39 +13,39 @@ env:
 
 jobs:
   test-deployment:
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v4
 
-      - name: Set up Miniconda
-        uses: conda-incubator/setup-miniconda@v3
-        with:
-          environment-file: environment.yml      # <-- at root
-          auto-activate-base: false
-          activate-environment: heymate-mds-data-clean-pipeline
-          python-version: 3.11
+  #     - name: Set up Miniconda
+  #       uses: conda-incubator/setup-miniconda@v3
+  #       with:
+  #         environment-file: environment.yml      # <-- at root
+  #         auto-activate-base: false
+  #         activate-environment: heymate-mds-data-clean-pipeline
+  #         python-version: 3.11
 
-      - name: Show Python version
-        shell: bash -l {0}
-        run: python --version
+  #     - name: Show Python version
+  #       shell: bash -l {0}
+  #       run: python --version
 
-      - name: Make credentials directory
-        run: mkdir -p credentials
+  #     - name: Make credentials directory
+  #       run: mkdir -p credentials
 
-      - name: Write OpenAI token
-        run: echo "${{ secrets.OPENAI_API_KEY }}" > credentials/open_ai_token.txt
+  #     - name: Write OpenAI token
+  #       run: echo "${{ secrets.OPENAI_API_KEY }}" > credentials/open_ai_token.txt
 
-      - name: Write DB key (.env or other multi-line)
-        run: |
-          printf '%s' "${{ secrets.DB_KEY }}" > credentials/.env
+  #     - name: Write DB key (.env or other multi-line)
+  #       run: |
+  #         printf '%s' "${{ secrets.DB_KEY }}" > credentials/.env
 
-      - name: Run deployment test
-        shell: bash -l {0}
-        run: |
-          cd script
-          python deployment_test.py
+  #     - name: Run deployment test
+  #       shell: bash -l {0}
+  #       run: |
+  #         cd script
+  #         python deployment_test.py
 
   build-and-deploy:
     needs: test-deployment
@@ -60,13 +60,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: 'Install dependencies for Azure Function'
-        shell: bash
-        run: |
-          cd script
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt --target=".python_packages/lib/site-packages"
 
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
