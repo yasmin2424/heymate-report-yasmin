@@ -9,7 +9,7 @@ on:
 env:
   AZURE_FUNCTIONAPP_NAME: 'heymate-popularity-func'   # replace as needed
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './script'  # path to your function code
-  PYTHON_VERSION: '3.9'
+  PYTHON_VERSION: '3.11'
 
 jobs:
   test-deployment:
@@ -25,7 +25,7 @@ jobs:
           environment-file: environment.yml      # <-- at root
           auto-activate-base: false
           activate-environment: heymate-mds-data-clean-pipeline
-          python-version: 3.9
+          python-version: 3.11
 
       - name: Show Python version
         shell: bash -l {0}
