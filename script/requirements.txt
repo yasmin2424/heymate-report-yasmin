@@ -1,5 +1,15 @@
-# DO NOT include azure-functions-worker in this file
-# The Python Worker is managed by Azure Functions platform
-# Manually managing azure-functions-worker may cause unexpected issues
-
+pandas
+numpy
+requests
+matplotlib
+seaborn
+altair
+sqlalchemy
+tqdm
+ipython
+pymssql
+freetds
+openai
+python-dotenv
+urllib3
 azure-functions

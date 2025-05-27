@@ -1,10 +1,15 @@
-name: Deployment Test
+name: CI/CD: Test & Deploy Azure Function
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'heymate-popularity-func'   # replace as needed
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './script'  # path to your function code
+  PYTHON_VERSION: '3.9'
 
 jobs:
   test-deployment:
@@ -17,10 +22,10 @@ jobs:
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
-          environment-file: environment.yml
+          environment-file: environment.yml      # <-- at root
           auto-activate-base: false
           activate-environment: heymate-mds-data-clean-pipeline
-          python-version: 3.10
+          python-version: 3.9
 
       - name: Show Python version
         shell: bash -l {0}
@@ -41,3 +46,34 @@ jobs:
         run: |
           cd script
           python deployment_test.py
+
+  build-and-deploy:
+    needs: test-deployment
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: 'Install dependencies for Azure Function'
+        shell: bash
+        run: |
+          cd script
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --target=".python_packages/lib/site-packages"
+
+      - name: 'Deploy to Azure Functions'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: script
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          scm-do-build-during-deployment: true
+          enable-oryx-build: true
