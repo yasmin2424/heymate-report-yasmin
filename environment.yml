@@ -1,5 +1,5 @@
 # install with conda env create -f environment.yml 
-name: 'data-cleaning'
+name: 'heymate-mds-data-clean-pipeline'
 channels:
   - conda-forge
   - pytorch
@@ -7,7 +7,7 @@ channels:
   - plotly
   - defaults
 dependencies:
-  - python=3.10
+  - python=3.9 
   - pandas
   - numpy
   - requests
