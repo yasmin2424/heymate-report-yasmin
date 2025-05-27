@@ -1,4 +1,4 @@
-name: CI/CD: Test & Deploy Azure Function
+name: "CI/CD Test & Deploy Azure Function"
 
 on:
   push:
