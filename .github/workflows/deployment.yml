@@ -10,6 +10,7 @@ env:
   AZURE_FUNCTIONAPP_NAME: 'heymate-popularity-func'   # replace as needed
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './script'  # path to your function code
   PYTHON_VERSION: '3.11'
+  
 
 jobs:
   test-deployment:
