@@ -26,7 +26,7 @@ def write_log(start_row_index, end_row_index, source, status, message=None):
             INSERT INTO {table_name} (start_row, end_row, source, status, message, log_time)
             VALUES (%s, %s, %s, %s, %s, %s)
             """,
-            (start_row_index, end_row_index, source, status, message, timestamp)
+            (start_row_index, end_row_index, source, status, 'Yasmin1' + message, timestamp)
         )
         conn.commit()
         print(f"Log written: {status} ({start_row_index}-{end_row_index})")
